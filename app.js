@@ -73,7 +73,7 @@ function renderSlots() {
         const date = new Date(slot.utc);
 
         // This is the magic for timezones!
-        const localTime = date.toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' });
+        const localTime = date.toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' });
         const sfTime = date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles', timeStyle: 'short', weekday: 'short' });
         const dublinTime = date.toLocaleString('en-IE', { timeZone: 'Europe/Dublin', timeStyle: 'short', weekday: 'short' });
         const londonTime = date.toLocaleString('en-GB', { timeZone: 'Europe/London', timeStyle: 'short', weekday: 'short' });
