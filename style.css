@@ -1,0 +1,205 @@
+/* MySpace vibes incoming! */
+body {
+    background-color: #fafafa;
+    /* A subtle, repeatable background pattern screams '2005' */
+    background-image: url('https://www.transparenttextures.com/patterns/tiny-grid.png');
+    font-family: 'Tahoma', 'Verdana', sans-serif;
+    color: #333;
+    font-size: 14px;
+}
+
+#myspace-container {
+    width: 850px;
+    margin: 20px auto;
+    background-color: #E5E5E5;
+    border: 2px solid #003399;
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+}
+
+.main-header {
+    background-color: #6699CC;
+    color: white;
+    padding: 10px 20px;
+    border-bottom: 2px solid #003399;
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.main-footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    color: #666;
+    border-top: 1px solid #ccc;
+}
+
+/* Blinking Text Animation! No <marquee> needed! */
+.blinking-text {
+    animation: blinker 1.5s linear infinite;
+}
+@keyframes blinker {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.content-wrapper {
+    display: flex;
+    padding: 20px;
+}
+
+.left-column {
+    width: 250px;
+    margin-right: 20px;
+}
+
+.right-column {
+    flex-grow: 1;
+}
+
+.module {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    margin-bottom: 20px;
+}
+
+.module-title {
+    background-color: #CFDEFF;
+    color: #003366;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-bottom: 1px solid #CCCCCC;
+    margin: 0;
+}
+
+#top-thinkers ul {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0;
+}
+
+#top-thinkers ul li {
+    padding: 5px 0;
+}
+
+#top-thinkers a {
+    color: #003399;
+    text-decoration: none;
+    font-weight: bold;
+}
+#top-thinkers a:hover {
+    text-decoration: underline;
+}
+
+#identity-module {
+    padding: 10px;
+}
+
+#user-selector {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#welcome-message {
+    font-weight: bold;
+    color: #006600;
+}
+
+#scheduler {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#scheduler li {
+    padding: 15px;
+    border-bottom: 1px dashed #ccc;
+    transition: background-color 0.2s ease-in-out;
+}
+#scheduler li:last-child {
+    border-bottom: none;
+}
+
+#scheduler li:hover {
+    background-color: #F0F8FF;
+}
+
+.slot-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.slot-checkbox input {
+    /* Fun little animation on the checkbox */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slot-checkbox input:hover {
+    transform: scale(1.2);
+}
+.slot-checkbox input:disabled {
+    cursor: not-allowed;
+}
+
+
+.time-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.timezones {
+    font-size: 12px;
+    color: #666;
+}
+
+.voters {
+    margin-left: auto;
+    text-align: right;
+}
+
+.voters span {
+    display: inline-block;
+    background-color: #E0E0E0;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.voters .you {
+    background-color: #90EE90; /* Light green for your vote */
+    font-weight: bold;
+}
+
+#winner-banner {
+    background-color: gold;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    border: 3px dashed #FF8C00;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.hidden {
+    display: none;
+}
