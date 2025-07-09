@@ -22,7 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const dbRef = ref(database, 'llm_meeting_votes');
+const dbRef = ref(database, 'llm_meeting_votes_v2'); // Using a new path for the new times
 
 // --- APP STATE & CONFIG ---
 
@@ -31,14 +31,20 @@ let currentUser = "";
 let winnerFound = false;
 
 // Define proposed time slots in UTC. This is the source of truth!
-// The 'Z' at the end means UTC.
+// Pacific Time (PT) is UTC-7 in July (PDT).
+// Thurs Jul 10, 7am PT -> 14:00 UTC
+// Fri Jul 11, 7am PT -> 14:00 UTC
+// Tue Jul 15, 5am PT -> 12:00 UTC
+// Wed Jul 16, 7:30am PT -> 14:30 UTC
+// Thu Jul 17, 7am PT -> 14:00 UTC
 const timeSlots = [
-    { id: 'slot1', utc: '2024-07-15T17:00:00Z' },
-    { id: 'slot2', utc: '2024-07-15T18:00:00Z' },
-    { id: 'slot3', utc: '2024-07-16T17:30:00Z' },
-    { id: 'slot4', utc: '2024-07-17T09:00:00Z' },
-    { id: 'slot5', utc: '2024-07-17T18:00:00Z' }
+    { id: 'slot1', utc: '2024-07-10T14:00:00Z' }, // Thurs Jul 10: 7am PT
+    { id: 'slot2', utc: '2024-07-11T14:00:00Z' }, // Fri Jul 11: 7am PT
+    { id: 'slot3', utc: '2024-07-15T12:00:00Z' }, // Tue Jul 15: 5am PT
+    { id: 'slot4', utc: '2024-07-16T14:30:00Z' }, // Wed Jul 16: 7:30am PT
+    { id: 'slot5', utc: '2024-07-17T14:00:00Z' }  // Thu Jul 17: 7am PT
 ];
+
 
 // --- DOM ELEMENTS ---
 
@@ -46,6 +52,7 @@ const userSelector = document.getElementById('user-selector');
 const schedulerList = document.getElementById('scheduler');
 const welcomeMessage = document.getElementById('welcome-message');
 const winnerBanner = document.getElementById('winner-banner');
+const successTune = document.getElementById('success-tune'); // Get the audio element
 
 // --- FUNCTIONS ---
 
@@ -116,7 +123,7 @@ function selectUser(event) {
 function handleVote(event) {
     const slotId = event.target.dataset.slotId;
     const isChecked = event.target.checked;
-    const voteRef = ref(database, `llm_meeting_votes/${slotId}/${currentUser}`);
+    const voteRef = ref(database, `llm_meeting_votes_v2/${slotId}/${currentUser}`);
     
     // Set the vote in Firebase (or remove it if unchecked)
     set(voteRef, isChecked ? true : null);
@@ -175,6 +182,9 @@ function triggerCelebration(winningSlotId) {
     
     // Show the banner
     winnerBanner.classList.remove('hidden');
+
+    // Play the success tune!
+    successTune.play().catch(e => console.error("Audio playback failed:", e));
     
     // Make it rain confetti!
     confetti({
