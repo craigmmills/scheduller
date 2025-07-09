@@ -32,11 +32,6 @@ let winnerFound = false;
 
 // Define proposed time slots in UTC. This is the source of truth!
 // Pacific Time (PT) is UTC-7 in July (PDT).
-// Thurs Jul 10, 7am PT -> 14:00 UTC
-// Fri Jul 11, 7am PT -> 14:00 UTC
-// Tue Jul 15, 5am PT -> 12:00 UTC
-// Wed Jul 16, 7:30am PT -> 14:30 UTC
-// Thu Jul 17, 7am PT -> 14:00 UTC
 const timeSlots = [
     { id: 'slot1', utc: '2024-07-10T14:00:00Z' }, // Thurs Jul 10: 7am PT
     { id: 'slot2', utc: '2024-07-11T14:00:00Z' }, // Fri Jul 11: 7am PT
@@ -72,8 +67,10 @@ function renderSlots() {
     timeSlots.forEach(slot => {
         const date = new Date(slot.utc);
 
-        // This is the magic for timezones!
-        const localTime = date.toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' });
+        // *** THIS IS THE FIX FOR THE TypeError ***
+        // Replaced `dateStyle: 'full'` with more specific, compatible options.
+        const localTime = date.toLocaleString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+        
         const sfTime = date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles', timeStyle: 'short', weekday: 'short' });
         const dublinTime = date.toLocaleString('en-IE', { timeZone: 'Europe/Dublin', timeStyle: 'short', weekday: 'short' });
         const londonTime = date.toLocaleString('en-GB', { timeZone: 'Europe/London', timeStyle: 'short', weekday: 'short' });
